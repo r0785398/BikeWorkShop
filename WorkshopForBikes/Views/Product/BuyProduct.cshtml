@@ -1,0 +1,40 @@
+﻿@model Models.Product
+
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    ViewData["Title"] = "Product - Buy";
+    int qty = 0;
+}
+
+<h1>Product / Buy</h1>
+
+
+<form asp-action="BuyProduct">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ProductId" />
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Name">@Html.DisplayNameFor(model => model.Name): </label>
+            <input type="text" class="form-control" asp-for="Name" placeholder="Product name" readonly />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Price">@Html.DisplayNameFor(model => model.Price): </label>
+            <input type="text" class="form-control" asp-for="Price" placeholder="Price" readonly />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label for="@qty">Order qty: </label>
+            @*//Very important to add "name" so that the variable can pass to the controller!*@
+            <input type="number" class="form-control" id="@qty" placeholder="qty" value="@qty" name="qty" />
+
+        </div>
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-primary" />
+    <button class="btn btn-primary" asp-controller="Product" asp-action="Index">Back to list</button>
+
+</form>
+

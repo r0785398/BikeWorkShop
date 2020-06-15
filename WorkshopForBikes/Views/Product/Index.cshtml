@@ -1,0 +1,55 @@
+﻿@model List<Models.Product>
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+    ViewData["Title"] = "Products";
+    int nummer = 1;
+    
+}
+
+<style>
+
+    img {
+        max-width:400px;
+        max-height:150px;
+        /*width: 400px;
+        height: 200px;*/
+    }
+</style>
+
+
+<h1>Products</h1>
+<a asp-controller="Product" asp-action="Create">Create new product</a>
+<p></p>
+
+<div class="card-deck">
+
+    @foreach (var item in Model.OrderBy(p => p.Name))
+    {
+        string picture = "/images/bikes/bike-" + nummer + ".png";
+
+        <div class="card">
+            <img src="@picture" class="card-img-top" alt="Foto van Product @nummer" >
+
+            <div class="card-body">
+                <h1 class="card-title">@item.Name</h1>
+
+                @*<h6 class="card-title">@item.Name</h6>*@
+                <p class="card-text">Price: @item.Price</p>
+                @*<a class="btn btn-primary" asp-controller="Product" asp-action="BuyProduct" asp-route-productId="@item.ProductId" asp-route-ShoppingBagId="@ViewData["shoppingBagId"]">Bye this bike</a>*@
+                <a class="btn btn-primary" asp-controller="Product" asp-action="BuyProduct" asp-route-productId="@item.ProductId">Buy this bike</a>
+            </div>
+           
+            <div class="card-footer">
+                <a class="btn btn-primary" asp-controller="Product" asp-action="Edit" asp-route-productId="@item.ProductId">Edit</a>
+                <a class="btn btn-primary" asp-controller="Product" asp-action="Remove" asp-route-productId="@item.ProductId">Delete</a>
+               
+            </div>
+        </div>
+
+        nummer++;
+
+    }
+
+</div>
+
+

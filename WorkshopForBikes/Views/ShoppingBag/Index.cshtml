@@ -1,0 +1,41 @@
+﻿@model List<Models.ShoppingBag>
+@{
+    ViewData["Title"] = "Shopping Bags";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h1>Shopping Bags</h1>
+
+@*moet via product add to chart*@
+@*<a asp-controller="ShoppingBag" asp-action="Create">Add new Shopping Bag</a>*@
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th hidden></th>
+            <th scope="col">Customer</th>
+            <th scope="col">Date</th>
+            <th scope="col"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var shoppingBag in Model.OrderBy(x =>x.Date).OrderBy(y => y.Customer.FullName))
+        {
+        <tr>
+            <td hidden>@shoppingBag.ShoppingBagId</td>
+            <td>@shoppingBag.Customer.FirstName @shoppingBag.Customer.Name</td>
+            @*<td>@shoppingBag.Date</td>*@
+            <td>@(Html.DisplayFor(modelItem => shoppingBag.Date))</td>
+
+            <td>
+                <a asp-controller="ShoppingBag" asp-action="Edit" asp-route-shoppingBagId="@shoppingBag.ShoppingBagId">Edit</a>
+                @*<a asp-controller="ShoppingBag" asp-action="Remove" asp-route-CustomerId="@shoppingBag.ShoppingBagId">Delete</a>*@
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

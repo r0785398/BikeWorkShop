@@ -1,0 +1,47 @@
+﻿@model Models.Customer
+@{
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+
+    ViewData["Title"] = "Home Page";
+
+    string picture = "/images/bikes/bike-" + ViewData["PictureNr"] + ".jpg";
+}
+
+
+
+
+<style>
+    
+
+    .center {
+        position: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+
+    img {
+        width: 700px;
+        
+    }
+    h1{
+        text-align:center;
+        text-size-adjust: auto;
+    }
+</style>
+
+<h1>App Webshop for bikes</h1>
+
+
+<form asp-action="Edit">
+    <div class="form-group">
+        <label>Pls select a customer</label>
+        <select asp-for="CustomerId" asp-items="@ViewBag.Customers" class="form-control"></select>
+        <span asp-validation-for="CustomerId" class="text-danger"></span>
+    </div>
+    <button class="btn btn-primary" asp-controller="Home" asp-action="ChooseCustomer" asp-route-CustomerId="CustomerId">Save</button>
+</form>
+
+<div class="text-center">
+    <a asp-controller="Product" asp-action="Index"><img src="@picture" class="rounded mx-auto d-block" /></a>
+</div>

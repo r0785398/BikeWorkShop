@@ -1,0 +1,27 @@
+﻿@model Models.Product
+@{
+    ViewData["Title"] = "Product - Create new";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h1>Product / Create new</h1>
+<form asp-action="Create">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Name">@Html.DisplayNameFor(model => model.Name): </label>
+            <input type="text" class="form-control" asp-for="Name" placeholder="Product name" required />
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Price">@Html.DisplayNameFor(model => model.Price): </label>
+            <input type="text" class="form-control" asp-for="Price" placeholder="Price" />
+        </div>
+    </div>
+
+    <input type="submit" value="Create" class="btn btn-primary" />
+    <button class="btn btn-primary" asp-controller="Product" asp-action="Index" formnovalidate>Back to list</button>
+
+
+</form>
+

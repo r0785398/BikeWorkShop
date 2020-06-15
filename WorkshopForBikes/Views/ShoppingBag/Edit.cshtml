@@ -1,0 +1,96 @@
+﻿
+@model BLL.ViewModels.shoppingBagViewModel
+@{
+    ViewData["Title"] = "Shopping Bag - Edit";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<h1>Shopping Bag / Edit</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="shoppingBag.ShoppingBagId" />
+            @*<div class="form-group">
+                <label asp-for="shoppingBag.Customer.FullName"></label>
+                <input type="text" class="form-control" asp-for="shoppingBag.Customer.FullName" placeholder="Customer" required />
+                <span asp-validation-for="shoppingBag.Customer.FullName" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="shoppingBag.CustomerId"></label>
+                <select asp-for="shoppingBag.CustomerId" asp-items="@ViewBag.Customers" class="form-control"></select>
+                <span asp-validation-for="shoppingBag.CustomerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="shoppingBag.Date"></label>
+                <input type="date" class="form-control" asp-for="shoppingBag.Date" placeholder="Date" />
+                <span asp-validation-for="shoppingBag.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <button class="btn btn-primary" asp-controller="Product" asp-action="Index" asp-route-ShoppingBagId="@Model.shoppingBag.ShoppingBagId" asp-route-CustomerId="@Model.shoppingBag.CustomerId">Back to products to add more items</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+<hr />
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th hidden></th>
+            <th scope="col">Product</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Price</th>
+            <th scope="col" align="right">Subtotaal</th>
+            <th scope="col"></th>
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model.shoppingItems.OrderBy(x => x.Product.Name))
+        {
+            <tr>
+                <td hidden>@item.ShoppingBagId</td>
+                <td>@item.Product.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Product.Price</td>
+                <td align="right">@item.SubTotaal</td>
+                <td>
+                    @*<a asp-controller="ShoppingBag" asp-action="Edit" asp-route-shoppingBagId="@shoppingBag.ShoppingBagId">Edit</a>*@
+                    @*<a asp-controller="ShoppingBag" asp-action="Remove" asp-route-CustomerId="@shoppingBag.ShoppingBagId">Delete</a>*@
+
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td></td>
+            <td>@Model.shoppingBag.TotaalQty </td>
+            <td></td>
+            <td align="right">@Model.shoppingBag.SubTotaal</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td>Discount</td>
+            <td>@Model.shoppingBag.DisountProcent %</td>
+            <td align="right">@Model.shoppingBag.DiscountValue</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>Total</td>
+            <td></td>
+            <td align="right">@Model.shoppingBag.Totaal</td>
+            <td></td>
+        </tr>
+
+    </tbody>
+</table>
+
+
